@@ -1,0 +1,67 @@
+---
+- include_vars: ../../mysql/defaults/main.yml
+
+- name: add Oracle JAVA PPA
+  apt_repository:
+    repo: ppa:webupd8team/java 
+
+- name: Accept oracle license
+  debconf:
+    name: oracle-java8-installer
+    question: shared/accepted-oracle-license-v1-1
+    value: 'true'
+    vtype: select
+
+- name: Install Oracle JAVA
+  apt:
+    name: [oracle-java8-installer,oracle-java8-set-default]
+
+- name: Setting JRE Securerandom
+  lineinfile:
+    path: /usr/lib/jvm/java-8-oracle/jre/lib/security/java.security
+    regexp: 'securerandom.source=file:/dev/random'
+    line: 'securerandom.source=file:/dev/./urandom'
+
+- name: Install tomcat
+  apt:
+    name: tomcat8
+
+- name: Setting tomcat 
+  copy:
+    src: catalina.sh
+    dest: /usr/share/tomcat8/bin
+    mode: 0755
+
+- name: Create ReportServer Directory
+  file:
+    path: /data/wwwroot/reportserver
+    state: directory
+    owner: tomcat8
+    group: tomcat8
+
+- name: Change tomcat webapp Directory
+  copy:
+    src: server.xml
+    dest: /etc/tomcat8/
+  notify: restart tomcat8
+
+- name: Download ReportServer
+  unarchive:
+    src: '{{reportserver_url}}'
+    dest: /data/wwwroot/reportserver
+    remote_src: yes
+    owner: tomcat8
+    group: tomcat8
+
+- name: Create databases 
+  mysql_db:
+    name: reportserver
+    login_user: root
+    login_password: '{{mysql_password}}'
+    state: import
+    target: /data/wwwroot/reportserver/ddl/reportserver-RS3.0.5-6005-schema-MySQL5_CREATE.sql
+
+- name: Setup database connection
+  template:
+    src: persistence.properties
+    dest: /data/wwwroot/reportserver/WEB-INF/classes
