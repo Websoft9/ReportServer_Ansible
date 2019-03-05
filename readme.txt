@@ -23,7 +23,6 @@ Websoft9 ReportServer stack ships with the following software versions:
 - JAVA 1.8.0_201
 - MYSQL 5.7.25
 - ReportServer Community 3.0.5-6005 (2018-10-30-10-32-54)
-- JDK build 1.8.0_201-b09
 - Apache Tomcat 8.5.30
 
 
