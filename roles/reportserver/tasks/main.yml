@@ -100,3 +100,11 @@
     regexp: '/root/init.sh'
     line: '/root/init.sh'
     mode: 0750
+
+
+
+- name: Setting File Permission
+  shell: find /data -type f -exec chmod 640 {} \;
+
+- name: Setting Directory Permission
+  shell: find /data -type d -exec chmod 750 {} \;   
