@@ -32,6 +32,13 @@
     dest: /usr/share/tomcat8/bin
     mode: 0755
 
+- name: Create Date Directory
+  file:
+    path: /data/
+    state: directory
+
+
+
 - name: Create ReportServer Directory
   file:
     path: /data/wwwroot/reportserver
@@ -65,6 +72,8 @@
   template:
     src: persistence.properties
     dest: /data/wwwroot/reportserver/WEB-INF/classes
+    owner: tomcat8
+    group: tomcat8
 
 
 - name: Setting rc.local
@@ -102,9 +111,5 @@
     mode: 0750
 
 
-
-- name: Setting File Permission
-  shell: find /data -type f -exec chmod 640 {} \;
-
-- name: Setting Directory Permission
-  shell: find /data -type d -exec chmod 750 {} \;   
+- name: Setting Owner and Group 
+  shell: chown -R tomcat8. /data/wwwroot
