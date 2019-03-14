@@ -72,6 +72,8 @@
   template:
     src: persistence.properties
     dest: /data/wwwroot/reportserver/WEB-INF/classes
+    owner: tomcat8
+    group: tomcat8
 
 
 - name: Setting rc.local
@@ -115,3 +117,6 @@
 
 - name: Setting Directory Permission
   shell: find /data/* -type d -exec chmod 755 {} \;   
+
+- name: Setting Owner and Group 
+  shell: chown -R tomcat8. /data/wwwroot
