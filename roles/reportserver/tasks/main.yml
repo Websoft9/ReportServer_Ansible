@@ -111,12 +111,5 @@
     mode: 0750
 
 
-
-- name: Setting File Permission
-  shell: find /data/* -type f -exec chmod 640 {} \;
-
-- name: Setting Directory Permission
-  shell: find /data/* -type d -exec chmod 755 {} \;   
-
 - name: Setting Owner and Group 
   shell: chown -R tomcat8. /data/wwwroot
