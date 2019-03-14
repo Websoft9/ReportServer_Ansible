@@ -32,6 +32,13 @@
     dest: /usr/share/tomcat8/bin
     mode: 0755
 
+- name: Create Date Directory
+  file:
+    path: /data/
+    state: directory
+
+
+
 - name: Create ReportServer Directory
   file:
     path: /data/wwwroot/reportserver
@@ -107,4 +114,4 @@
   shell: find /data/* -type f -exec chmod 640 {} \;
 
 - name: Setting Directory Permission
-  shell: find /data/* -type d -exec chmod 750 {} \;   
+  shell: find /data/* -type d -exec chmod 755 {} \;   

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 old_password=$(cat /root/password.txt | awk -F ":" '{print $2}' )
-new_password=$(</dev/urandom tr -dc '12345!@#$%qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c10)
+new_password=$(</dev/urandom tr -dc '12345qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c10)
 
 sleep 5
 systemctl restart mysql
