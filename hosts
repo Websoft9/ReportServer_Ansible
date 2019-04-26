@@ -1,6 +1,2 @@
 [server]
-<<<<<<< HEAD
-159.138.239.50    ansible_ssh_user=root  ansible_ssh_pass=Qwer1234
-=======
-159.138.234.182  ansible_ssh_user=root  ansible_ssh_pass=Qwer1234
->>>>>>> eaf6b102a9f7309a5bb76fd53e3fee385f78e647
+159.138.85.10  ansible_ssh_user=root  ansible_ssh_pass=Qwer1234
