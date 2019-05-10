@@ -78,13 +78,20 @@
   service: name=rc.local state=restarted enabled=yes
 
 
-- name: Write Databases Password
-  shell: echo 'Databases root Password:'{{mysql_password}}  > /root/password.txt
-
-- name: Password Text File Permission
+- name: Create credentials Folder
   file:
-    path: /root/password.txt
-    mode: 0640
+    path: /credentials
+    state: directory
+
+- name: Create Password doc
+  file:
+    path: /credentials/password.txt
+    mode: 644
+    state: touch
+
+- name: Write Databases Password
+  shell: echo 'Databases root Password:'{{mysql_password}}  > /credentials/password.txt
+
 
 - name: Databases Random Password
   copy: 
