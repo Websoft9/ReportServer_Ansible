@@ -1,6 +1,6 @@
 ---
 - name: ReportServer
-  hosts: server
+  hosts: all
   become: yes
   become_method: sudo
   remote_user: '{{admin_username}}'
@@ -12,7 +12,7 @@
 
 
 - name: ReportServer
-  hosts: server
+  hosts: all
   become: yes
   become_method: sudo
   remote_user: '{{admin_username}}'
