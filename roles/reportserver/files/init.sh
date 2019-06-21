@@ -13,6 +13,7 @@ sed -i "s/$old_password/$new_password/" /data/wwwroot/reportserver/WEB-INF/class
 
 systemctl restart tomcat8
 userdel -rf websoft9      
+rm -rf /var/db/sudo/lectured/websoft9                                          
 sed -i "s/\/root\/init.sh//" /etc/rc.local                                                      
 rm -rf /root/init.sh
 
