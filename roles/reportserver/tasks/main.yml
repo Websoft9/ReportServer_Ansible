@@ -55,7 +55,7 @@
     login_user: root
     login_password: '{{mysql_password}}'
     state: import
-    target: /data/wwwroot/reportserver/ddl/reportserver-RS3.0.5-6005-schema-MySQL5_CREATE.sql
+    target: /data/wwwroot/reportserver/ddl/reportserver-RS3.0.7-6008-schema-MySQL5_CREATE.sql
 
 - name: Setup database connection
   template:
