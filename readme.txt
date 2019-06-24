@@ -1,4 +1,4 @@
-Websoft9 ReportServer Stack 3.0.5
+Websoft9 ReportServer Stack 3.0.7
 
 ===========================
 
