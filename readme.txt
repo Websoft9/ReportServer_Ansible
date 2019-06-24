@@ -22,7 +22,7 @@ Websoft9 ReportServer stack ships with the following software versions:
 - Nginx 1.14.0
 - JAVA 1.8.0_201
 - MYSQL 5.7.25
-- ReportServer Community 3.0.5-6005 (2018-10-30-10-32-54)
+- ReportServer Community 3.0.7-6005 (2019-05-06-13-37-55)
 - Apache Tomcat 8.5.30
 
 
