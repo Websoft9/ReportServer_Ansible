@@ -7,15 +7,15 @@
 目前仅支持Ubuntu16.x以上部署此脚本
 
 ## 服务器配置要求
-First of all, be sure of having at least 3 GB OF DEDICATED RAM and 2 GB OF FREE SPACE on file system
+最低1G内存
 
 ## 版本
 
-本项目Knowage采用的源码部署方式，为了保证每次安装为最新版本，需要在运行脚本之前Knowage源码下载地址。
+本项目ReportServer采用的源码部署方式，为了保证每次安装为最新版本，需要在运行脚本之前ReportServer源码下载地址。
 
-修改方法：roles/knowage/defaults/main.yml的 knowage_url 字段
+修改方法：roles/reportserver/defaults/main.yml的 reportserver_url 字段
 
-源码下载地址：https://www.knowage-suite.com/site/knowage-download/
+源码下载地址：https://sourceforge.net/projects/dw-rs/files/bin/3.0/
 
 ## 安装指南
 
