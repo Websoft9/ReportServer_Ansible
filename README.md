@@ -37,6 +37,21 @@ reportserver_url: http://xxx # reportserver下载地址
 
 ~~~
 
+### 特殊修改
+
+安装过程中需要上传sql文件，而这个文件名称带版本号，故需要手工修改。3.0.7-6008为版本号字段
+所需修改的文件：roles/reportserver/tasks/main.yml
+
+~~~
+- name: Create databases 
+  mysql_db:
+    name: reportserver
+    login_user: root
+    login_password: '{{mysql_password}}'
+    state: import
+    target: /data/wwwroot/reportserver/ddl/reportserver-RS3.0.7-6008-schema-MySQL5_CREATE.sql
+~~~
+
 ## 组件
 ReportServer,Nginx,JAVA,MYSQL,phpMyAdmin(Docker)
 
