@@ -39,7 +39,10 @@
   copy:
     src: server.xml
     dest: /etc/tomcat8/
-  notify: restart tomcat8
+
+- name: restart tomcat8
+  service: name=tomcat8 state=restarted enabled=yes
+  
 
 - name: Download ReportServer
   unarchive:
