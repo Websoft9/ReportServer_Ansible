@@ -24,6 +24,6 @@
   - { role: mysql , tags: "mysql"}
   - { role: reportserver  , tags: "reportserver"} 
   - { role: nginx , tags: "nginx"}
-  - { role: end , tags: "end"}
+  
 
     
