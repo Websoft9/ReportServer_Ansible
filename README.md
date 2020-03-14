@@ -1,66 +1,60 @@
 # ReportServer自动化安装与部署
 
-本项目是基于Ansible的[ReportServer](https://reportserver.net/en/)自动化安装脚本，实现在Ansible上一键安装ReportServer。本项目是开源项目，支持MIT开源协议。如果您不熟悉Ansible的使用，您可以直接使用我们在公有云上提供的镜像。
+本项目是由 [Websoft9](https://www.websoft9.com) 研发的 [ReportServer](https://reportserver.net/en/) 自动化安装程序，开发语言是 Ansible。使用本项目，只需要用户在 Linux 上运行一条命令，即可自动化安装 Reportserver，让原本复杂的安装过程变得没有任何技术门槛。  
 
-## 操作系统
+本项目是开源项目，采用 LGPL3.0 开源协议。
 
-目前仅支持Ubuntu16.x以上部署此脚本
+## 配置要求
 
-## 服务器配置要求
-最低1G内存
+安装本项目，确保符合如下的条件：
 
-## 版本
+| 条件       | 详情       | 备注  |
+| ------------ | ------------ | ----- |
+| 操作系统       | Ubuntu16.04      |   |
+| 公有云| AWS, Azure, 阿里云, 华为云, 腾讯云 | 可选 |
+| 私有云|  KVM, VMware, VirtualBox, OpenStack | 可选 |
+| 服务器配置 | 最低1核1G，安装时所需的带宽不低于10M |  建议采用按量100M带宽 |
 
-本项目ReportServer采用的源码部署方式，为了保证每次安装为最新版本，需要在运行脚本之前ReportServer源码下载地址。
+## 组件
 
-修改方法：roles/reportserver/defaults/main.yml的 reportserver_url 字段
+包含的核心组件为：Repotserver + Tomcat + MySQL + Docker + phpMyAdmin on Docker
 
-源码下载地址：https://sourceforge.net/projects/dw-rs/files/bin/3.0/
+更多请见：[参数表](/docs/zh/stack-components.md)
+
+## 本项目安装的是 reportserver 最新版吗？
+
+本项目通过下载 Reportserver 源码进行安装，下载链接存储在：[role/reportserver/default/main.yml](/roles/reportserver/defaults/main.yml)。我们会定期检查并测试官方版本的可用性，尽可能保证用户可以顺利安装最新版。
+
+```
+reportserver_download_url: "https://jaist.dl.sourceforge.net/project/dw-rs/bin/3.0/RS3.0.7-6008-2019-05-06-13-37-55-reportserver-ce.zip"
+```
+
+如果你发现不是最新版本，请到 [reportserver 下载页面](http://reportserver.net/download)获取最新版源码下载链接，再修改 [main.yml](/roles/reportserver/defaults/main.yml) 中的 ```reportserver_download_url``` 变量值即可安装最新版 Reportserver。  
 
 ## 安装指南
 
-本Ansible脚本支持root用户、普通用户（+su权限提升）等两种账号模式，也支持密码和秘钥对登录方式。
+以 root 用户登录 Linux，运行下面的**一键自动化安装命令**即可启动自动化部署。若没有 root 用户，请以其他用户登录 Linux 后运行 `sudo su -` 命令提升为 root 权限，然后再运行下面的脚本。
 
-### 变量
+```
+wget -N https://raw.githubusercontent.com/Websoft9/linux/master/ansible_script/install.sh ; bash install.sh repository=reportserver
+```
 
-下面列出安装过程中可能需要用的变量
+脚本后启动，就开始了自动化安装，必要时需要用户做出交互式选择，然后耐心等待直至安装成功。
 
-~~~
+**安装中的注意事项：**  
 
-//非root用户安装需要设置此项
-admin_username: websoft9
+1. 操作不慎或网络发生变化，可能会导致SSH连接被中断，安装就会失败，此时请重新安装
+2. 安装缓慢、停滞不前或无故中断，主要是网络不通（或网速太慢）导致的下载问题，此时请重新安装
 
-//以下变量可选
-mysql_password: 123456 # mysql 默认密码
-remote: no  # 是否开启远程
-reportserver_url: http://xxx # reportserver下载地址
+多种原因导致无法顺利安装，请使用我们在公有云上发布的 [Reportserver镜像](https://apps.websoft9.com/reportserver) 的部署方式
 
-~~~
+## 文档
 
-### 特殊修改
+文档链接：https://support.websoft9.com/docs/reportserver/zh
 
-安装过程中需要上传sql文件，而这个文件名称带版本号，故需要手工修改。3.0.7-6008为版本号字段
-所需修改的文件：roles/reportserver/tasks/main.yml
+## FAQ
 
-~~~
-- name: Create databases 
-  mysql_db:
-    name: reportserver
-    login_user: root
-    login_password: '{{mysql_password}}'
-    state: import
-    target: /data/wwwroot/reportserver/ddl/reportserver-RS3.0.7-6008-schema-MySQL5_CREATE.sql
-~~~
-
-## 组件
-ReportServer,Nginx,JAVA,MYSQL,phpMyAdmin(Docker)
-
-## 使用指南
-
-后台账号：root/root
-   
-配置文件：/data/wwwroot/reportserver/WEB-INF/classes/persistence.properties
-
-文档链接：[readme.txt](readme.txt)
+- 命令脚本部署与镜像部署有什么区别？请参考：[镜像部署-vs-脚本部署](https://support.websoft9.com/docs/faq/zh/bz-product.html#镜像部署-vs-脚本部署)
+- 本项目支持在 Ansible Tower 上运行吗？支持
 
 
